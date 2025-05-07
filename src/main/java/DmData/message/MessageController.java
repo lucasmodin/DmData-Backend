@@ -3,6 +3,7 @@ package DmData.message;
 
 import DmData.message.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +21,17 @@ public class MessageController {
     }
 
     @PostMapping("saveMessage")
-    public ResponseEntity<Message> saveMessage(@RequestBody Message msg){
+    public ResponseEntity<String> saveMessage(@RequestBody Message msg){
+        if (msg != null){
         Message obj = new Message(msg.getName(), msg.getMail(), msg.getMessage());
         if (msg.getNumber() != null){
             obj.setNumber(msg.getNumber());
         }
         messageService.saveMessage(obj);
-
-        return ResponseEntity.ok(obj);
+            return ResponseEntity.ok("obj saved");
+        } else {
+            return ResponseEntity.badRequest().body("Missing require data");
+        }
     }
 
 
