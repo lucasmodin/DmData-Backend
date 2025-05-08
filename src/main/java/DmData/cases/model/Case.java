@@ -1,13 +1,12 @@
-package DmData.message.model;
+package DmData.cases.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "cases") //åbenbart er case reserveret i SQL
 public class Case {
 
     @Id
