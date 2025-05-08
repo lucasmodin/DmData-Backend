@@ -72,4 +72,6 @@ public class Case {
     public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
     }
+
+
 }
