@@ -27,6 +27,7 @@ public class MessageController {
         if (msg.getNumber() != null){
             obj.setNumber(msg.getNumber());
         }
+        messageService.sendAutoMail(msg);
         messageService.saveMessage(obj);
             return ResponseEntity.ok("obj saved");
         } else {
