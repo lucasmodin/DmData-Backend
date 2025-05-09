@@ -24,6 +24,7 @@ public class Verifycaptcha {
     public boolean verifyCaptcha(String captchaResponse) {
         try {
             String secretKey = System.getenv("RECAPTCHA_SECRET"); //miljø variable
+            //Google officielle endpoint er i String url
             String url = "https://www.google.com/recaptcha/api/siteverify";
             String params = "secret=" + URLEncoder.encode(secretKey, "UTF-8")
                     + "&response=" + URLEncoder.encode(captchaResponse, "UTF-8");
