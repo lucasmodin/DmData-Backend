@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
-public class ContactController {
+public class CaptchaController {
 
     @Autowired
     private Verifycaptcha verifycaptcha;  // service filen
