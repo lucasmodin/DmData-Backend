@@ -1,4 +1,4 @@
-package DmData.cookie;
+package DmData.cookie.service;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;

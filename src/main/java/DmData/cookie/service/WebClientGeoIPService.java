@@ -1,4 +1,4 @@
-package DmData.cookie;
+package DmData.cookie.service;
 
 import DmData.cookie.dto.IpApiResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Service
 @Profile("prod")
-public class WebClientGeoIPService implements GeoIpService{
+public class WebClientGeoIPService implements GeoIpService {
 
     private final WebClient webClient;
     private final Duration timeout;

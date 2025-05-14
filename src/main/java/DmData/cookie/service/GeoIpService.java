@@ -1,6 +1,4 @@
-package DmData.cookie;
-
-import org.springframework.stereotype.Service;
+package DmData.cookie.service;
 
 import java.util.Map;
 

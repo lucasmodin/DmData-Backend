@@ -1,10 +1,10 @@
-package DmData.cookie;
+package DmData.cookie.service;
 
 import DmData.cookie.model.Visit;
+import DmData.cookie.repository.VisitRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -33,7 +33,7 @@ public class VisitService {
         repo.save(v);
     }
 
-    private String pseudonymizeIp(String ip) {
+    protected String pseudonymizeIp(String ip) {
         if (ip == null) return "unknown";
 
         // IPv4 → fjern sidste octet

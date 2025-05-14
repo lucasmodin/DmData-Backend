@@ -1,6 +1,7 @@
-package DmData.cookie;
+package DmData.cookie.controller;
 import DmData.cookie.dto.CookieConsentDTO;
 import DmData.cookie.model.CookieConsent;
+import DmData.cookie.service.CookieConsentService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,10 @@ import java.util.UUID;
         allowCredentials = "true"
 )
 public class CookieConsentController {
-    private final DmData.cookie.CookieConsentService service;
+    private final CookieConsentService service;
     private static final String VISITOR_COOKIE = "visitorId";
 
-    public CookieConsentController(DmData.cookie.CookieConsentService service) {
+    public CookieConsentController(CookieConsentService service) {
         this.service = service;
     }
 

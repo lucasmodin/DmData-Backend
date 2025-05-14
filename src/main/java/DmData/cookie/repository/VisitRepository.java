@@ -1,4 +1,4 @@
-package DmData.cookie;
+package DmData.cookie.repository;
 
 import DmData.cookie.model.Visit;
 import org.springframework.data.jpa.repository.JpaRepository;
