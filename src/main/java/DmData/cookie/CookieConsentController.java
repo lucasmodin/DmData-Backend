@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/cookie-consent")
-@CrossOrigin("*")
+@CrossOrigin(value = "*", allowCredentials = "true")
 public class CookieConsentController {
     private final DmData.cookie.CookieConsentService service;
     private static final String VISITOR_COOKIE = "visitorId";
