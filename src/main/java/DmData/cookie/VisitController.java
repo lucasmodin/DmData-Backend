@@ -9,7 +9,10 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/visits")
-@CrossOrigin(origins = "*", allowCredentials = "true")
+@CrossOrigin(
+        origins = "http://localhost:3000",
+        allowCredentials = "true"
+)
 public class VisitController {
     private static final String VISITOR_COOKIE = "visitorId";
     private final VisitService visitService;
