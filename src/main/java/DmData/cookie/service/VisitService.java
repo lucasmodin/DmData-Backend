@@ -2,6 +2,7 @@ package DmData.cookie.service;
 
 import DmData.cookie.model.Visit;
 import DmData.cookie.repository.VisitRepository;
+import DmData.util.HashUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -18,12 +19,15 @@ public class VisitService {
     }
 
     public void logVisit(String visitorId, String ip) {
-        // 1) Geolokation baseret på rå IP (eller drop city hvis du vil være mere anonym)
+        // 1) krypter visitorId siden det kan spores tilbage til bruger
+        String hashedVisitor = HashUtil.sha256(visitorId);
+
+        // 2) Geolokation baseret på rå IP (eller drop city hvis du vil være mere anonym)
         Map<String,String> geo = geoIp.lookup(ip);
 
-        // 2) Gem besøget
+        // 3) Gem besøget
         Visit v = new Visit();
-        v.setVisitorId(visitorId);
+        v.setVisitorHash(hashedVisitor);
         v.setCountry(geo.get("country"));
         v.setCity(geo.get("city"));
         repo.save(v);

@@ -49,7 +49,7 @@ public class VisitController {
             ip = req.getRemoteAddr();
         }
 
-        // Servicen pseudonymiserer IP og gemmer landet/by
+        // Servicen gemmer landet/by
         visitService.logVisit(visitorId, ip);
     }
 

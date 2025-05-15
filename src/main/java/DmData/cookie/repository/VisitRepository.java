@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface VisitRepository extends JpaRepository<Visit, Long> {
 
-    @Query("SELECT COUNT(DISTINCT v.visitorId) FROM Visit v")
+    @Query("SELECT COUNT(DISTINCT v.visitorHash) FROM Visit v")
     long countDistinctVisitors();
 
     //query to get number of visits pr. city

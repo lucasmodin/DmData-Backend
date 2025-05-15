@@ -11,7 +11,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -59,7 +58,7 @@ class VisitServiceTest {
         verify(repo).save(cap.capture());
 
         Visit v = cap.getValue();
-        assert v.getVisitorId().equals(visitorId);
+        assert v.getVisitorHash().equals(visitorId);
         assert v.getIpAddress().equals("8.8.8.0");
         assert v.getCountry().equals("US");
         assert v.getCity().equals("NYC");

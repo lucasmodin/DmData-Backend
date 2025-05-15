@@ -11,8 +11,8 @@ public class Visit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 36)
-    private String visitorId;
+    @Column(nullable = false)
+    private String visitorHash;
 
     private String country;
     private String city;
@@ -30,12 +30,12 @@ public class Visit {
         this.id = id;
     }
 
-    public String getVisitorId() {
-        return visitorId;
+    public String getVisitorHash() {
+        return visitorHash;
     }
 
-    public void setVisitorId(String visitorId) {
-        this.visitorId = visitorId;
+    public void setVisitorHash(String visitorHash) {
+        this.visitorHash = visitorHash;
     }
 
     public String getCountry() {
