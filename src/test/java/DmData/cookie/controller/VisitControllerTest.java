@@ -27,7 +27,7 @@ class VisitControllerTest {
     @Test
     void postLogVisit_setsVisitorIdCookie_andCallsService() throws Exception {
         mockMvc.perform( post("/api/visits")
-                .header("Origin", "http://localhost:3000"))
+                .header("Origin", "http://localhost:63342"))
                 .andExpect(status().isOk())
                 .andExpect(cookie().exists("visitorId"));
         verify(visitService).logVisit(anyString(), anyString());
@@ -37,7 +37,7 @@ class VisitControllerTest {
     void postLogVisit_reusesExistingCookie() throws Exception {
         // Vi sender en visitorId=abc-123 i request
         mockMvc.perform(post("/api/visits")
-                        .header("Origin", "http://localhost:3000")
+                        .header("Origin", "http://localhost:63342")
                         .cookie(new Cookie("visitorId", "abc-123"))
                 )
                 .andExpect(status().isOk())
@@ -56,7 +56,7 @@ class VisitControllerTest {
                 .thenReturn(Map.of("DK", 7L, "US", 35L));
 
         mockMvc.perform(get("/api/visits/stats")
-                        .header("Origin", "http://localhost:3000"))
+                        .header("Origin", "http://localhost:63342"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.totalVisits").value(42))

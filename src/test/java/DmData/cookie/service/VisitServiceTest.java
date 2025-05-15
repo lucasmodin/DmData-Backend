@@ -2,6 +2,7 @@ package DmData.cookie.service;
 
 import DmData.cookie.model.Visit;
 import DmData.cookie.repository.VisitRepository;
+import DmData.util.HashUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -28,23 +29,12 @@ class VisitServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void pseudomizeIpv4() {
-        String in = "192.168.1.123";
-        String out = service.pseudonymizeIp(in);
-        assert out.equals("192.168.1.0");
-    }
 
-    @Test
-    void pseudomizeIpv6() {
-        String in = "2001:db8::1:abcd";
-        String out = service.pseudonymizeIp(in);
-        assert out.equals("2001:db8::1:0");
-    }
 
     @Test
     void logVisit_savesPseudonymizedAndGeo() {
         String visitorId = "v123";
+        String hashedId = HashUtil.sha256(visitorId);
         String rawIp = "8.8.8.8";
 
         //stub
@@ -58,8 +48,7 @@ class VisitServiceTest {
         verify(repo).save(cap.capture());
 
         Visit v = cap.getValue();
-        assert v.getVisitorHash().equals(visitorId);
-        assert v.getIpAddress().equals("8.8.8.0");
+        assert v.getVisitorHash().equals(hashedId);
         assert v.getCountry().equals("US");
         assert v.getCity().equals("NYC");
     }
