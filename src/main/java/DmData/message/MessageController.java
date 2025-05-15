@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 public class MessageController {
 
-
     private MessageService messageService;
 
     public MessageController(MessageService messageService){
