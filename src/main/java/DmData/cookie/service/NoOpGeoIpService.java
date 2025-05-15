@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 @Profile("!prod")
 public class NoOpGeoIpService implements GeoIpService {
-    //
+
     @Override
     public Map<String, String> lookup(String ip) {
         return Map.of(

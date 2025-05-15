@@ -18,13 +18,10 @@ public class VisitService {
     }
 
     public void logVisit(String visitorId, String ip) {
-        // 1) Pseudonymiser IP
-
-
-        // 2) Geolokation baseret på rå IP (eller drop city hvis du vil være mere anonym)
+        // 1) Geolokation baseret på rå IP (eller drop city hvis du vil være mere anonym)
         Map<String,String> geo = geoIp.lookup(ip);
 
-        // 3) Gem besøget
+        // 2) Gem besøget
         Visit v = new Visit();
         v.setVisitorId(visitorId);
         v.setCountry(geo.get("country"));
