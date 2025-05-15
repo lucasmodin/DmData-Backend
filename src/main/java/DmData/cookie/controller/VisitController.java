@@ -37,6 +37,8 @@ public class VisitController {
             Cookie c = new Cookie(VISITOR_COOKIE, visitorId);
             c.setPath("/");
             c.setMaxAge(60 * 60 * 24 * 365);
+            c.setHttpOnly(true);
+            c.setSecure(true);
             resp.addCookie(c);
         }
 

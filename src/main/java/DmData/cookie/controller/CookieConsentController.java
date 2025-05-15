@@ -48,6 +48,8 @@ public class CookieConsentController {
             Cookie cookie = new Cookie(VISITOR_COOKIE, visitorId);
             cookie.setPath("/");
             cookie.setMaxAge(60*60*24*365);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
             response.addCookie(cookie);
         }
 
