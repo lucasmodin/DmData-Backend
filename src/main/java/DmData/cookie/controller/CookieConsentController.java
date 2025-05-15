@@ -13,7 +13,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/cookie-consent")
 @CrossOrigin(
-        origins = "http://localhost:3000",
+        origins = "http://localhost:63342",
         allowCredentials = "true"
 )
 public class CookieConsentController {
@@ -49,7 +49,7 @@ public class CookieConsentController {
             cookie.setPath("/");
             cookie.setMaxAge(60*60*24*365);
             cookie.setHttpOnly(true);
-            cookie.setSecure(true);
+            //cookie.setSecure(true);
             response.addCookie(cookie);
         }
 

@@ -11,7 +11,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/visits")
 @CrossOrigin(
-        origins = "http://localhost:3000",
+        origins = "http://localhost:63342",
         allowCredentials = "true"
 )
 public class VisitController {
@@ -38,7 +38,7 @@ public class VisitController {
             c.setPath("/");
             c.setMaxAge(60 * 60 * 24 * 365);
             c.setHttpOnly(true);
-            c.setSecure(true);
+            //c.setSecure(true);
             resp.addCookie(c);
         }
 
