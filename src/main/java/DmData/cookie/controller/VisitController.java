@@ -38,6 +38,7 @@ public class VisitController {
             c.setPath("/");
             c.setMaxAge(60 * 60 * 24 * 365);
             c.setHttpOnly(true);
+            //i prod skal setSecure være (true) - vigtigt for sikkerhed, men virker ikke locally da den skal være over https:
             //c.setSecure(true);
             resp.addCookie(c);
         }

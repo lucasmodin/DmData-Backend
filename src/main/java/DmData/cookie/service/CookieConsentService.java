@@ -15,6 +15,7 @@ public class CookieConsentService {
         this.repo = repo;
     }
 
+    //samme metode til både at gemme og opdatere
     public CookieConsent saveOrUpdate(String visitorId, boolean analytics, boolean marketing) {
         CookieConsent consent = repo.findByVisitorId(visitorId)
                 .orElseGet(() -> {

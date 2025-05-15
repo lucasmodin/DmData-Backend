@@ -27,9 +27,11 @@ public class CookieConsentController {
     @GetMapping
     public ResponseEntity<CookieConsentDTO> getConsent(
             @CookieValue(value = VISITOR_COOKIE, required = false) String visitorId) {
+        //hvis brugerId (cookie) ikke findes
         if (visitorId == null) {
             return ResponseEntity.notFound().build();
         }
+        //hvis brugerid (cookie) findes i databasen
         Optional<CookieConsent> maybe = service.findByVisitorId(visitorId);
         return maybe
                 .map(this::toDto)
@@ -43,16 +45,18 @@ public class CookieConsentController {
             @RequestBody CookieConsentDTO dto,
             HttpServletResponse response) {
 
+        //hvis brugeren ikke har en cookie (visitorId), opret en med 1 års varighed:
         if (visitorId == null) {
             visitorId = UUID.randomUUID().toString();
             Cookie cookie = new Cookie(VISITOR_COOKIE, visitorId);
             cookie.setPath("/");
             cookie.setMaxAge(60*60*24*365);
             cookie.setHttpOnly(true);
+            //i prod skal setSecure være (true) - vigtigt for sikkerhed, men virker ikke locally da den skal være over https:
             //cookie.setSecure(true);
             response.addCookie(cookie);
         }
-
+        //gem eller opdater i databasen
         CookieConsent saved = service.saveOrUpdate(
                 visitorId,
                 dto.isAnalyticsAccepted(),
@@ -61,6 +65,7 @@ public class CookieConsentController {
         return ResponseEntity.ok(toDto(saved));
     }
 
+    //map til dto
     private CookieConsentDTO toDto(CookieConsent c) {
         CookieConsentDTO dto = new CookieConsentDTO();
         dto.setAnalyticsAccepted(c.isAnalyticsAccepted());

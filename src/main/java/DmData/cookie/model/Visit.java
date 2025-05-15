@@ -14,9 +14,6 @@ public class Visit {
     @Column(nullable = false, length = 36)
     private String visitorId;
 
-    @Column(nullable = false, length = 45)
-    private String ipAddress;
-
     private String country;
     private String city;
 
@@ -39,14 +36,6 @@ public class Visit {
 
     public void setVisitorId(String visitorId) {
         this.visitorId = visitorId;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
     }
 
     public String getCountry() {

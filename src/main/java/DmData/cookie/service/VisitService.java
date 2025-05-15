@@ -19,7 +19,7 @@ public class VisitService {
 
     public void logVisit(String visitorId, String ip) {
         // 1) Pseudonymiser IP
-        String pseudoIp = pseudonymizeIp(ip);
+
 
         // 2) Geolokation baseret på rå IP (eller drop city hvis du vil være mere anonym)
         Map<String,String> geo = geoIp.lookup(ip);
@@ -27,32 +27,11 @@ public class VisitService {
         // 3) Gem besøget
         Visit v = new Visit();
         v.setVisitorId(visitorId);
-        v.setIpAddress(pseudoIp);
         v.setCountry(geo.get("country"));
         v.setCity(geo.get("city"));
         repo.save(v);
     }
 
-    protected String pseudonymizeIp(String ip) {
-        if (ip == null) return "unknown";
-
-        // IPv4 → fjern sidste octet
-        if (ip.contains(".")) {
-            String[] parts = ip.split("\\.");
-            if (parts.length == 4) {
-                return parts[0] + "." + parts[1] + "." + parts[2] + ".0";
-            }
-        }
-        // IPv6 → fjern sidste blok
-        if (ip.contains(":")) {
-            int idx = ip.lastIndexOf(':');
-            if (idx != -1) {
-                return ip.substring(0, idx) + ":0";
-            }
-        }
-        // fallback
-        return ip;
-    }
 
     public long totalVisits() {
         return repo.count();
