@@ -149,6 +149,31 @@ class MessageControllerTest {
         verifyNoInteractions(messageService);
     }
 
+    //Test hvis man kan sende tomme felter ind i backenden
+    @Test
+    void saveMessage_emptyFields_shouldReturnOk() {
+        Message msg = new Message("", "", "");
+        ResponseEntity<String> response = messageController.saveMessage(msg);
+
+        assertEquals(400, response.getStatusCodeValue());
+        assertEquals("obj saved", response.getBody());
+    }
+
+
+    //Test om man man sende en besked til backenden uden et telefon nummber
+    //Den virker faktisk.
+    @Test
+    void saveMessage_withoutPhoneNumber_shouldReturnOk() {
+        Message msg = new Message("Kristoffer", "mail@example.com", "No phone number test");
+
+        ResponseEntity<String> response = messageController.saveMessage(msg);
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("obj saved", response.getBody());
+
+        verify(messageService).sendAutoMail(msg);
+        verify(messageService).saveMessage(argThat(savedMsg -> savedMsg.getNumber() == null));
+    }
 
 
 }
