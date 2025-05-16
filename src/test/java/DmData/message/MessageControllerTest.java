@@ -37,13 +37,25 @@ class MessageControllerTest {
         verify(messageService, times(1)).saveMessage(any(Message.class));
     }
 
-    //null message
+    //null message (200  betyder at den at den sendes)
     @Test
     void saveMessage_nullMessage_shouldReturnBadRequest() {
         ResponseEntity<String> response = messageController.saveMessage(null);
         assertEquals(200, response.getStatusCodeValue());
         assertEquals("Missing require data", response.getBody());
         verifyNoInteractions(messageService);
+    }
+
+    //test om man kan sende en besked der består af et enkelt anslag
+    @Test
+    void saveMessage_oneCharacter_shouldReturnOk() {
+        Message msg = new Message("Kristoffer", "mail@example.com", "1");
+        ResponseEntity<String> response = messageController.saveMessage(msg);
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("obj saved", response.getBody());
+        verify(messageService, times(1)).sendAutoMail(msg);
+        verify(messageService, times(1)).saveMessage(any(Message.class));
     }
 
 
