@@ -58,5 +58,43 @@ class MessageControllerTest {
         verify(messageService, times(1)).saveMessage(any(Message.class));
     }
 
+    //+ 46 test er i princippet i strid med HTML formattet
+    @Test
+    void saveMessage_phoneNumberWithPlus46_shouldReturnOk() {
+        // Arrange
+        Message msg = new Message("Kristoffer", "mail@example.com", "International number test");
+        msg.setNumber("+46701234567");
+
+        // Act
+        ResponseEntity<String> response = messageController.saveMessage(msg);
+
+        // Assert
+        assertEquals(400, response.getStatusCodeValue());
+        assertEquals("obj saved", response.getBody());
+
+        verify(messageService).sendAutoMail(msg);
+        verify(messageService).saveMessage(argThat(savedMsg ->
+                "+46701234567".equals(savedMsg.getNumber())
+        ));
+    }
+
+    @Test
+    void saveMessage_phoneNumberTooShort_shouldStillReturnOk() {
+        // Arrange
+        Message msg = new Message("Kristoffer", "mail@example.com", "Short number test");
+        msg.setNumber("1234"); //det er ikke muligt at have et telefon nummer der kun er 4 cifre
+
+        // Act
+        ResponseEntity<String> response = messageController.saveMessage(msg);
+
+        // Assert
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("obj saved", response.getBody());
+
+        verify(messageService).sendAutoMail(msg);
+        verify(messageService).saveMessage(argThat(savedMsg ->
+                "1234".equals(savedMsg.getNumber())
+        ));
+    }
 
 }
