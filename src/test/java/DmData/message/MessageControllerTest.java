@@ -177,7 +177,7 @@ class MessageControllerTest {
 
     //test om man kan sende uendelige store længder af beskeder
     @Test
-    void saveMessage_veryLongMessage_shouldReturnOk() {
+    void saveMessage_veryLongMessage_shouldReturnBad() {
         String longMessage = "a".repeat(10_000); // or however long your DB/text field allows
         Message msg = new Message("Kristoffer", "mail@example.com", longMessage);
 
