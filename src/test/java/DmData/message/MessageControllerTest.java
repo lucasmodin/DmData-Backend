@@ -175,5 +175,18 @@ class MessageControllerTest {
         verify(messageService).saveMessage(argThat(savedMsg -> savedMsg.getNumber() == null));
     }
 
+    //test om man kan sende uendelige store længder af beskeder
+    @Test
+    void saveMessage_veryLongMessage_shouldReturnOk() {
+        String longMessage = "a".repeat(10_000); // or however long your DB/text field allows
+        Message msg = new Message("Kristoffer", "mail@example.com", longMessage);
+
+        ResponseEntity<String> response = messageController.saveMessage(msg);
+
+        assertEquals(400, response.getStatusCodeValue());
+        assertEquals("obj saved", response.getBody());
+    }
+
+
 
 }
