@@ -97,4 +97,44 @@ class MessageControllerTest {
         ));
     }
 
+    @Test
+    void saveMessage_phoneNumberIsNotNumeric_shouldStillReturnOk() {
+        // Arrange
+        Message msg = new Message("Kristoffer", "mail@example.com", "Non-numeric number test");
+        msg.setNumber("Hello");
+
+        // Act
+        ResponseEntity<String> response = messageController.saveMessage(msg);
+
+        // Assert
+        assertEquals(400, response.getStatusCodeValue());
+        assertEquals("obj saved", response.getBody());
+
+        verify(messageService).sendAutoMail(msg);
+        verify(messageService).saveMessage(argThat(savedMsg ->
+                "Hello".equals(savedMsg.getNumber())
+        ));
+    }
+
+
+    @Test
+    void saveMessage_phoneNumberWithASingleNumber_shouldReturnOk() {
+        // Arrange
+        Message msg = new Message("Kristoffer", "mail@example.com", "Non-numeric number test");
+        msg.setNumber("Hello1");
+
+        // Act
+        ResponseEntity<String> response = messageController.saveMessage(msg);
+
+        // Assert
+        assertEquals(400, response.getStatusCodeValue());
+        assertEquals("obj saved", response.getBody());
+
+        verify(messageService).sendAutoMail(msg);
+        verify(messageService).saveMessage(argThat(savedMsg ->
+                "Hello".equals(savedMsg.getNumber())
+        ));
+    }
+
+
 }
