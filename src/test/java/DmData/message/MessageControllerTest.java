@@ -136,5 +136,19 @@ class MessageControllerTest {
         ));
     }
 
+    @Test
+    void saveMessage_invalidPhoneNumberFormat_shouldReturnBadRequest() {
+        Message msg = new Message("Kristoffer", "mail@example.com", "Bad number");
+        msg.setNumber("Hello");
+
+        ResponseEntity<String> response = messageController.saveMessage(msg);
+
+        assertEquals(400, response.getStatusCodeValue());
+        assertEquals("Invalid phone number format", response.getBody());
+
+        verifyNoInteractions(messageService);
+    }
+
+
 
 }
