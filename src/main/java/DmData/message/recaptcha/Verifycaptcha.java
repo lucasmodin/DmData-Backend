@@ -22,6 +22,11 @@ Captcha Controller og beskeden
 public class Verifycaptcha {
 
     public boolean verifyCaptcha(String captchaResponse) {
+
+        if(captchaResponse == null || captchaResponse.isBlank()) {
+            return false;
+        }
+
         try {
             String secretKey = System.getenv("RECAPTCHA_SECRET"); //miljø variable
             //Google officielle endpoint er i String url
