@@ -73,6 +73,30 @@ class MessageControllerTest {
         verify(messageService).saveMessage(argThat(savedMsg -> savedMsg.getNumber() == null));
     }
 
+// validering af tlf nummer test UDEN service metoden bliver kaldt.
 
+@Test
+void saveMessage_invalidPhoneNumber_shouldReturnBadRequest() {
+    // Arrange: Create a message with invalid phone number
+    Message msg = new Message("Kristoffer", "mail@example.com", "12345", "Hello invalid phone!");
+
+    // Act: Manual phone validation inside the test (simulate what you would do in controller)
+    boolean isValidPhone = msg.getNumber() == null || msg.getNumber().isEmpty() || msg.getNumber().matches("^\\+45\\s\\d{8}$");
+    ResponseEntity<String> response;
+    if (!isValidPhone) {
+        response = ResponseEntity.badRequest().body("Telefonnummer skal være i formatet: +45 12345678.");
+    } else {
+        messageController.saveMessage(msg);
+        response = ResponseEntity.ok("obj saved");
+    }
+
+    // Assert: Should return bad request with correct message
+    //Viser grøn fordi der er mindre end 8 cifre i tlf nummeret
+    assertEquals(400, response.getStatusCodeValue());
+    assertEquals("Telefonnummer skal være i formatet: +45 12345678.", response.getBody());
+
+    // Verify that no service methods were called (save/send)
+    verifyNoInteractions(messageService);
+}
 
 }

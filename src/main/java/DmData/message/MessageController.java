@@ -20,17 +20,21 @@ public class MessageController {
     }
 
     @PostMapping("saveMessage")
-    public ResponseEntity<String> saveMessage(@RequestBody Message msg){
-        if (msg != null){
-        Message obj = new Message(msg.getName(), msg.getMail(), msg.getMessage());
-        if (msg.getNumber() != null){
-            obj.setNumber(msg.getNumber());
-        }
-        messageService.sendAutoMail(msg);
-        messageService.saveMessage(obj);
-            return ResponseEntity.ok("obj saved");
+    public ResponseEntity<String> saveMessage(@RequestBody Message msg) {
+        if (msg != null) {
+            try {
+                Message obj = new Message(msg.getName(), msg.getMail(), msg.getMessage());
+                if (msg.getNumber() != null) {
+                    obj.setNumber(msg.getNumber());
+                }
+                messageService.sendAutoMail(msg);
+                messageService.saveMessage(obj);
+                return ResponseEntity.ok("obj saved");
+            } catch (IllegalArgumentException e) { //Hvis en validering slår fejl
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            }
         } else {
-            return ResponseEntity.badRequest().body("Missing require data");
+            return ResponseEntity.badRequest().body("Missing required data");
         }
     }
 
