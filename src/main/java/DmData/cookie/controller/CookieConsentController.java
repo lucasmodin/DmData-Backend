@@ -29,14 +29,14 @@ public class CookieConsentController {
             @CookieValue(value = VISITOR_COOKIE, required = false) String visitorId) {
         //hvis brugerId (cookie) ikke findes
         if (visitorId == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         }
         //hvis brugerid (cookie) findes i databasen
         Optional<CookieConsent> maybe = service.findByVisitorId(visitorId);
         return maybe
                 .map(this::toDto)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.noContent().build());
     }
 
     @PostMapping
