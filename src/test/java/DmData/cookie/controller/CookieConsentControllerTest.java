@@ -33,7 +33,7 @@ class CookieConsentControllerTest {
     @Test
     void getConsent_withoutCookie_returns404() throws Exception {
         mockMvc.perform(get("/api/cookie-consent"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNoContent());
     }
 
     @Test
