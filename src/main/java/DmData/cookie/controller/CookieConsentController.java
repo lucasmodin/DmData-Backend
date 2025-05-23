@@ -12,10 +12,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/cookie-consent")
-@CrossOrigin(
-        origins = "http://localhost:63342",
-        allowCredentials = "true"
-)
 public class CookieConsentController {
     private final CookieConsentService service;
     private static final String VISITOR_COOKIE = "visitorId";
@@ -53,7 +49,7 @@ public class CookieConsentController {
             cookie.setMaxAge(60*60*24*365);
             cookie.setHttpOnly(true);
             //i prod skal setSecure være (true) - vigtigt for sikkerhed, men virker ikke locally da den skal være over https:
-            //cookie.setSecure(true);
+            cookie.setSecure(true);
             response.addCookie(cookie);
         }
         //gem eller opdater i databasen

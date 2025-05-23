@@ -10,10 +10,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/visits")
-@CrossOrigin(
-        origins = "http://localhost:63342",
-        allowCredentials = "true"
-)
 public class VisitController {
     private static final String VISITOR_COOKIE = "visitorId";
     private final VisitService visitService;
@@ -39,7 +35,7 @@ public class VisitController {
             c.setMaxAge(60 * 60 * 24 * 365);
             c.setHttpOnly(true);
             //i prod skal setSecure være (true) - vigtigt for sikkerhed, men virker ikke locally da den skal være over https:
-            //c.setSecure(true);
+            c.setSecure(true);
             resp.addCookie(c);
         }
 
