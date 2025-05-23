@@ -7,6 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.PrePersist;
+import org.hibernate.annotations.processing.Pattern;
+
+
 import java.time.LocalDateTime;
 
 @Entity
