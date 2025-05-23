@@ -15,7 +15,7 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins(
-                                "http://localhost:633420",
+                                "http://localhost:63342",
                                 "https://lemon-rock-05a51eb03.6.azurestaticapps.net",
                                 "https://dmdatascience.dk"
                         )
