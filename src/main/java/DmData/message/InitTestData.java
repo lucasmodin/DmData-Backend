@@ -16,10 +16,5 @@ public class InitTestData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Message obj1 = new Message("Oskar","osbj0001@stud.kea.dk","GAy as hell boyyyyeee");
-        Message obj2 = new Message("Oskar Pedersen","osbj0001@stud.kea.dk","Yihahahaha");
-
-        messageDB.save(obj1);
-        messageDB.save(obj2);
     }
 }

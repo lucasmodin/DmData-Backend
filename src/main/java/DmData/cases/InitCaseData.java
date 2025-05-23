@@ -21,11 +21,7 @@ public class InitCaseData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Case no1 = new Case("Python project", "/hej/hej/hej", "https://hej.dk");
-        Case no2 = new Case("R project", "/hej/hej/hej", "https://hej.dk");
-        Case no3 = new Case("Sterilcentralen project", "/hej/hej/hej", "https://hej.dk");
-        Case no4 = new Case("Region Hovedstaden project", "/hej/hej/hej", "https://hej.dk");
-        caseRepository.saveAll(List.of(no1, no2, no3, no4));
+
     }
 
 
